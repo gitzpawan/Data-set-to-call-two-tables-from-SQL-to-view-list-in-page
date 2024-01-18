@@ -1,0 +1,47 @@
+function LedgerCostCenterwise() {
+
+        $.post('/AccountingReport/LedgerCostCenterwiseJsonList', {
+
+        }, function (data) {
+            $('#ProgressImg').hide();
+            var obj = $.parseJSON(data);
+
+
+            var msr = 0;
+
+            $.each(obj, function (key, value) {
+
+
+                msr = msr + 1;
+
+
+
+
+                if (key == 'Table1') {
+                    $.each(obj[key], function (key1, value1) {
+                        $('#accname').text(value1.AccountName);
+                        $('#state').text(value1.fvStateName);
+                        $('#city').text(value1.fvCityName);
+                        $('#gst').text(value1.GSTIN);
+                        $('#fdate').text(value1.FromDate);
+                        $('#tdate').text(value1.ToDate);
+                    });
+                }
+                if (key == 'Table2') {
+                    $.each(obj[key], function (key1, value1) {
+
+                        $('#vdate').text(value1.VoucherDate);
+                        $('#rNo').text(value1.RefNo);
+                        $('transac').text(value1.Transactions);
+                        $('#debit').text(value1.Debit);
+                        $('#credit').text(value1.Credit);
+                        $('#bal').text(value1.Balnce);
+                        $('#baltype').text(value1.BalType);
+                        $('#ccenter').text(value1.ProjectName);
+                        $('#circle').text(value1.Circle);
+                    });
+                }
+            });
+
+        });
+    }
